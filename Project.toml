@@ -1,0 +1,13 @@
+name = "BonitoBlog"
+uuid = "8b3cd1a5-63d9-421b-9fde-46b64b830918"
+authors = ["Simon Danisch"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1"
+
+[targets]
+test = ["Test"]
