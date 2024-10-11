@@ -1,6 +1,6 @@
-using BonitoBlog
+using BonitoSites
 using Test
 
-@testset "BonitoBlog.jl" begin
+@testset "BonitoSites.jl" begin
     # Write your tests here.
 end
