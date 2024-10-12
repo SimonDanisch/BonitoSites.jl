@@ -5,6 +5,7 @@ const PROJ_WORKER = Dict{String,Malt.Worker}()
 function parse_markdown_with_env(julia_project)
     @assert isdir(julia_project)
     @assert isfile(joinpath(julia_project, "Project.toml"))
+    
     mw = MaltRunner(julia_project)
     file = only(filter(x -> endswith(x, ".md"), readdir(julia_project)))
     source = read(joinpath(julia_project, file), String)
@@ -38,7 +39,7 @@ function create_worker_for_proj(project)
         return Malt.Worker(exeflags="--project=$(project)")
     end
     try
-        fetch(Malt.remote_eval(w, :(1 + 1)))
+        fetch(Malt.remote_eval(w, :(using Pkg; Pkg.instantiate())))
     catch e
         @warn "error in new worker" exception=e
         delete!(PROJ_WORKER, project)
@@ -88,7 +89,6 @@ function Base.eval(mr::MaltRunner, expr::Expr)
                 paths = (server.folder, server.current_dir)
             end
         end
-        @show paths
 
         eval_expr = quote
             path = $(path)
@@ -100,10 +100,10 @@ function Base.eval(mr::MaltRunner, expr::Expr)
                 Makie.save(path * ".png", result)
                 return path * ".png"
             elseif @isdefined(Bonito) && result isa Bonito.Asset
-                open(path * ".asset", "w") do io
-                    print(io, Bonito.get_path(result))
-                end
-                return path * ".asset"
+                assetpath = Bonito.get_path(result)
+                rest, ext = splitext(assetpath)
+                cp(assetpath, path * ext)
+                return path * ext
             else
                 is_html = showable(MIME"text/html"(), result)
                 mime = is_html ? MIME"text/html"() : MIME"text/plain"()
