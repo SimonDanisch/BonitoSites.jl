@@ -12,5 +12,6 @@ include("rss.jl")
 include("ai-utils.jl")
 include("deploy.jl")
 include("components.jl")
+include("social/social.jl")
 
 end
