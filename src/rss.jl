@@ -31,6 +31,12 @@ function from_xml(filename::AbstractString)
     return SiteEntry(title, link, description, date, "")
 end
 
+function write_xml(path, entry)
+    xml = to_xml(entry)
+    open(path, "w") do file
+        print(file, XML.write(xml))
+    end
+end
 
 function to_xml(se::SiteEntry, relative_path="")
     item_element = h.item()
@@ -40,6 +46,10 @@ function to_xml(se::SiteEntry, relative_path="")
     push!(item_element, h.description(se.description))
     date = Dates.format(se.date, "e, d u Y H:M:S")
     push!(item_element, h.pubDate(date))
+    if !isempty(se.image)
+        image_link = replace(se.image, "./" => relative_path)
+        push!(item_element, h.image(h.url(image_link)))
+    end
     return item_element
 end
 

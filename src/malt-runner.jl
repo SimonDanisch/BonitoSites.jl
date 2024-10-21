@@ -5,7 +5,7 @@ const PROJ_WORKER = Dict{String,Malt.Worker}()
 function parse_markdown_with_env(julia_project)
     @assert isdir(julia_project)
     @assert isfile(joinpath(julia_project, "Project.toml"))
-    
+
     mw = MaltRunner(julia_project)
     file = only(filter(x -> endswith(x, ".md"), readdir(julia_project)))
     source = read(joinpath(julia_project, file), String)
@@ -27,7 +27,7 @@ function MarkdownPage(folder_or_md)
         file = if isfile(folder_or_md)
             folder_or_md
         else
-            only(filter(x -> endswith(x, ".md"), readdir(folder_or_md)))
+            only(filter(x -> endswith(x, ".md"), readdir(folder_or_md; join=true)))
         end
         md = parse_markdown_file(file)
     end
