@@ -1,4 +1,5 @@
 
+title(pr) = string(pr.title, "[#$(pr.number)]($(pr.html_url))")
 
 function ask_openai(prompt, system="you're a level headed technical author of the open source plotting library Makie.jl. Your tone is neutral, without bullshit and no smileys and overhype.")
     user = Dict("role" => "user", "content" => prompt)
@@ -9,11 +10,12 @@ end
 
 function generate_prompt(comments)
     """
-    Here are all the comments for a github pr for my open source plotting library Makie.jl:
+    Here are all the comments for a github diff between two versions for my open source plotting library Makie.jl:
     ```markdown
     $(comments)
     ```
-    I want you to make a concise summary that works well for a blogpost about all the changes this PR introduced.
+    I want you to make a concise summary that works well for a blogpost in markdown format about all relevant changes any PR introduced.
+    You should have one section per PR, with title, markdown link to the PR and any relevant images attached to the paragraph.
     These summaries will get a manually written intro and concatenated to a blogpost, so please refrain from mentioning that this is a PR for makie, since it will be redundant.
     KEEP IT REALLY SHORT AND LEAVE OUT ANYTHING THAT WAS ONLY DISCUSSED!!!
     Dont repeat discussions or contemplate about the changes.
@@ -34,30 +36,43 @@ function generate_prompt(comments)
     """
 end
 
-function get_comments(pr; filter_comments=(x) -> true)
+function write_comments(io, repo, pr; filter_comments=(x)-> true)
     pr_comments, _ = gh_comments(repo, pr, :pr)
-    return sprint() do io
-        println(io, "# ", title(pr))
-        println(io)
-        println(io, pr.body)
-        println(io)
-        for comment in pr_comments
-            if filter_comments(comment)
-                println(io, "### Use $(comment.user) says:")
-                println(io, comment.body)
-            end
+    println(io, "# ", title(pr))
+    println(io)
+    println(io, pr.body)
+    println(io)
+    for comment in pr_comments
+        if filter_comments(comment)
+            println(io, "### User $(comment.user.login) says:")
+            println(io, comment.body)
         end
     end
 end
 
-function ai_pr_summary(filename, tag1, tag2)
+function get_comments(repo, pr; filter_comments=(x) -> true)
+    return sprint() do io
+        write_comments(io, repo, pr; filter_comments=filter_comments)
+    end
+end
+
+function get_pr_comments(io, repo, commits; filter_comments=(x)-> true)
+    for c in commits
+        pr = get_pr(repo, c)
+        isnothing(pr) && continue
+        write_comments(io, repo, pr; filter_comments=filter_comments)
+        println(io)
+    end
+end
+
+function ai_pr_summary(filename, repo, tag1, tag2)
     diff = gh_compare(repo, tag2, tag1)
     open(filename, "w") do io
         for c in diff.commits
             pr = get_pr(repo, c)
             isnothing(pr) && continue
             println(io, "# ", title(pr))
-            pr_comments = get_comments(pr)
+            pr_comments = get_comments(repo, pr)
             summary = ask_openai(generate_prompt(pr_comments))
             println(io)
             println(io, summary)
@@ -65,6 +80,3 @@ function ai_pr_summary(filename, tag1, tag2)
         end
     end
 end
-
-
-title(pr) = string(pr.title, "[#$(pr.number)]($(pr.html_url))")

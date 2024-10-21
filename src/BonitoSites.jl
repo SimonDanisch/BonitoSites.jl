@@ -5,6 +5,7 @@ using Bonito: Asset, ES6Module, AssetFolder, Routes
 using GitHub
 using Malt
 using Documenter
+using OpenAI
 
 include("malt-runner.jl")
 include("gh-utils.jl")
