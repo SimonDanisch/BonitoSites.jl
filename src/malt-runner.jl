@@ -1,15 +1,25 @@
 
 const PROJ_WORKER = Dict{String,Malt.Worker}()
+using Downloads
 
-
-function rewrite_img(session, img)
+function rewrite_img(session, current_folder, img)
+    imgurl = img.url
     if isfile(img.url)
-        url = url(session, img.url)
-        return Markdown.Image(url, img.alt)
-    elseif startswith("http", img.url)
-        path = Downloads.download(img.url)
-        return Markdown.Image(path, img.alt)
+        imgurl = Bonito.url(session, Bonito.Asset(img.url))
+    elseif startswith(img.url, "http")
+        file_mime = Bonito.file_mimetype(img.url)
+        io = IOBuffer()
+        Downloads.download(img.url, io)
+        asset = Bonito.BinaryAsset(take!(io), file_mime)
+        imgurl = Bonito.url(session, asset)
+    elseif startswith(img.url, "./")
+        fileurl = img.url[3:end]
+        file = Bonito.to_unix_path(joinpath(current_folder, fileurl))
+        if isfile(file)
+            imgurl = Bonito.url(session, Bonito.Asset(file))
+        end
     end
+    return return Markdown.Image(imgurl, img.alt)
 end
 
 function parse_markdown_with_env(julia_project)
@@ -20,7 +30,7 @@ function parse_markdown_with_env(julia_project)
     file = only(filter(x -> endswith(x, ".md"), readdir(julia_project)))
     source = read(joinpath(julia_project, file), String)
     replacements = Dict(
-        Markdown.Image => (img) -> rewrite_img(runner.current_session[], img)
+        Markdown.Image => (img) -> rewrite_img(runner.current_session[], julia_project, img)
     )
     return Bonito.EvalMarkdown(source; runner=runner, replacements=replacements)
 end
@@ -29,8 +39,9 @@ function parse_markdown_file(mdfile)
     m = Module()
     source = read(mdfile, String)
     runner = Bonito.ModuleRunner(m)
+    folder = dirname(mdfile)
     replacements = Dict(
-        Markdown.Image => (img)-> rewrite_img(runner.current_session[], img)
+        Markdown.Image => (img) -> rewrite_img(runner.current_session[], folder, img)
     )
     return Bonito.EvalMarkdown(source; runner=runner, replacements=replacements)
 end
