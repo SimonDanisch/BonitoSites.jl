@@ -6,6 +6,7 @@ using GitHub
 using Malt
 using Documenter
 using OpenAI
+using Markdown
 
 include("malt-runner.jl")
 include("gh-utils.jl")

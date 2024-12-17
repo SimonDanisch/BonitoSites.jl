@@ -2,20 +2,37 @@
 const PROJ_WORKER = Dict{String,Malt.Worker}()
 
 
+function rewrite_img(session, img)
+    if isfile(img.url)
+        url = url(session, img.url)
+        return Markdown.Image(url, img.alt)
+    elseif startswith("http", img.url)
+        path = Downloads.download(img.url)
+        return Markdown.Image(path, img.alt)
+    end
+end
+
 function parse_markdown_with_env(julia_project)
     @assert isdir(julia_project)
     @assert isfile(joinpath(julia_project, "Project.toml"))
 
-    mw = MaltRunner(julia_project)
+    runner = MaltRunner(julia_project)
     file = only(filter(x -> endswith(x, ".md"), readdir(julia_project)))
     source = read(joinpath(julia_project, file), String)
-    return Bonito.EvalMarkdown(source; runner=mw)
+    replacements = Dict(
+        Markdown.Image => (img) -> rewrite_img(runner.current_session[], img)
+    )
+    return Bonito.EvalMarkdown(source; runner=runner, replacements=replacements)
 end
 
 function parse_markdown_file(mdfile)
     m = Module()
     source = read(mdfile, String)
-    return Bonito.EvalMarkdown(source; runner=Bonito.ModuleRunner(m))
+    runner = Bonito.ModuleRunner(m)
+    replacements = Dict(
+        Markdown.Image => (img)-> rewrite_img(runner.current_session[], img)
+    )
+    return Bonito.EvalMarkdown(source; runner=runner, replacements=replacements)
 end
 
 function MarkdownPage(folder_or_md)
