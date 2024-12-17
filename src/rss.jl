@@ -12,8 +12,10 @@ end
 
 function Bonito.jsrender(s::Session, se::SiteEntry)
     human_date = Dates.format(se.date, "e, d u Y H:M:S")
+    # Bonito.Link is already relative to current site
+    link = replace(se.link, "./" => "/")
     card = Bonito.Card(DOM.div(
-        DOM.a(DOM.h3(se.title), href=Bonito.Link(se.link)),
+        DOM.a(DOM.h3(se.title), href=Bonito.Link(link)),
         DOM.h4(se.description),
         DOM.div(human_date);
     ))
@@ -41,7 +43,7 @@ end
 function to_xml(se::SiteEntry, relative_path="")
     item_element = h.item()
     push!(item_element, h.title(se.title))
-    link = replace(se.link, "./" => relative_path)
+    link = se.link
     push!(item_element, h.link(link))
     push!(item_element, h.description(se.description))
     date = Dates.format(se.date, "e, d u Y H:M:S")
