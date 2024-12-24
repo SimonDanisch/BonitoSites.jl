@@ -99,6 +99,7 @@ function MaltRunner(project; overwrite=false)
 end
 
 function Base.eval(mr::MaltRunner, expr::Expr)
+
     output_path = mr.output_path
     overwrite = mr.overwrite
     mr.counter += 1
@@ -119,8 +120,15 @@ function Base.eval(mr::MaltRunner, expr::Expr)
         end
 
         eval_expr = quote
+
             path = $(path)
-            result = $(expr)
+            old_pwd = pwd()
+            cd($(dirname(mr.output_path)))
+            result = try
+                result = $(expr)
+            finally
+                cd(old_pwd)
+            end
             if isnothing(result)
                 write(path * ".nothing", "nothing")
                 return path * ".nothing"
