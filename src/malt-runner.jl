@@ -156,7 +156,11 @@ function Base.eval(mr::MaltRunner, expr::Expr)
         try
             output_file = fetch(Malt.remote_eval(worker, eval_expr))
         catch e
-            @show expr
+            println(stderr, """
+                Erorr in Expression:
+                $(expr)
+                From project: $(mr.project)
+            """)
             rethrow(e)
         end
     end
