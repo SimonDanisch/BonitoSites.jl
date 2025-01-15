@@ -137,7 +137,7 @@ end
 
 
 # using Blog
-# img = Blog.assetpath("images", "materials.png")
+# img = Blog.asset("images", "materials.png")
 # post_to_linkedin("Test Post", img)
 
 # ENV["LINKEDIN_AUTHOR"] = "222189745"

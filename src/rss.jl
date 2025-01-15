@@ -14,11 +14,11 @@ function Bonito.jsrender(s::Session, se::SiteEntry)
     human_date = Dates.format(se.date, "e, d u Y H:M:S")
     # Bonito.Link is already relative to current site
     link = replace(se.link, "./" => "/")
-    card = Bonito.Card(DOM.div(
+    card = DOM.a(
         DOM.a(DOM.h3(se.title), href=Bonito.Link(link)),
         DOM.h4(se.description),
-        DOM.div(human_date);
-    ))
+        DOM.div(human_date; class="date"); href=Bonito.Link(link)
+    )
     return Bonito.jsrender(s, card)
 end
 
