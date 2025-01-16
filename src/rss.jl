@@ -8,29 +8,44 @@ struct SiteEntry
     description::String
     date::DateTime
     image::String
+    bsky_link::String
 end
 
 function Bonito.jsrender(s::Session, se::SiteEntry)
     human_date = Dates.format(se.date, "e, d u Y H:M:S")
     # Bonito.Link is already relative to current site
     link = replace(se.link, "./" => "/")
+    img = isempty(se.image) ? nothing : DOM.img(src=Asset(se.image), height="300px")
     card = DOM.a(
         DOM.a(DOM.h3(se.title), href=Bonito.Link(link)),
         DOM.h4(se.description),
+        img,
         DOM.div(human_date; class="date"); href=Bonito.Link(link)
     )
     return Bonito.jsrender(s, card)
 end
 
+function to_dict(x)
+    elem = x.children[1]
+    if x.tag == "image"
+        return "image" => elem.children[1].value
+    end
+    x.tag => elem.value
+end
+
 function from_xml(filename::AbstractString)
     doc = read(filename, Node)
     items = doc.children[1].children
-    title = items[1].children[1].value
-    link = items[2].children[1].value
-    description = items[3].children[1].value
+    item_dict = Dict(to_dict.(items))
+    title = item_dict["title"]
+    link = item_dict["link"]
+    description = item_dict["description"]
+    date = parse(DateTime, item_dict["pubDate"], DateFormat("e, d u Y H:M:S"))
 
-    date = parse(DateTime, items[4].children[1].value, DateFormat("e, d u Y H:M:S"))
-    return SiteEntry(title, link, description, date, "")
+    image = get(item_dict, "image", "")
+    image = isempty(image) ? "" : joinpath(dirname(filename), image)
+    bsky_link = get(item_dict, "bluesky", "")
+    return SiteEntry(title, link, description, date, image, bsky_link)
 end
 
 function write_xml(path, entry)
