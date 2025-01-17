@@ -128,8 +128,8 @@ function Base.eval(mr::MaltRunner, expr::Expr)
             path = $(path)
             old_pwd = pwd()
             cd($(dirname(mr.output_path)))
-            result = try
-                result = $(expr)
+            local result = try
+                $(expr)
             finally
                 cd(old_pwd)
             end
