@@ -2,6 +2,10 @@
 const PROJ_WORKER = Dict{String,Malt.Worker}()
 using Downloads
 
+struct ToSVG
+    obj::Any
+end
+
 function rewrite_img(session, current_folder, img)
     imgurl = img.url
     if isfile(img.url)
@@ -104,7 +108,7 @@ function Base.eval(mr::MaltRunner, expr::Expr)
     overwrite = mr.overwrite
     mr.counter += 1
     path = joinpath(output_path, "cell_output_$(mr.counter)")
-    extensions = [".png", ".html", ".txt", ".asset", ".nothing"]
+    extensions = [".png", ".svg", ".html", ".txt", ".asset", ".nothing"]
     idx = findfirst(x -> isfile(path * x), extensions)
     output_file = ""
     if !overwrite && !isnothing(idx)
@@ -132,6 +136,9 @@ function Base.eval(mr::MaltRunner, expr::Expr)
             if isnothing(result)
                 write(path * ".nothing", "nothing")
                 return path * ".nothing"
+            elseif result isa ToSVG
+                Makie.save(path * ".svg", result.obj)
+                return path * ".svg"
             elseif @isdefined(Makie) && result isa Makie.FigureLike
                 Makie.save(path * ".png", result)
                 return path * ".png"
