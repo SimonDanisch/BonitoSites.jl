@@ -108,7 +108,7 @@ function Base.eval(mr::MaltRunner, expr::Expr)
     overwrite = mr.overwrite
     mr.counter += 1
     path = joinpath(output_path, "cell_output_$(mr.counter)")
-    extensions = [".png", ".svg", ".html", ".txt", ".asset", ".nothing"]
+    extensions = [".png", ".svg", ".html", ".txt", ".asset", ".nothing", ".mp4", ".webm", ".ogg"]
     idx = findfirst(x -> isfile(path * x), extensions)
     output_file = ""
     if !overwrite && !isnothing(idx)
