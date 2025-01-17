@@ -136,7 +136,7 @@ function Base.eval(mr::MaltRunner, expr::Expr)
             if isnothing(result)
                 write(path * ".nothing", "nothing")
                 return path * ".nothing"
-            elseif result isa ToSVG
+            elseif @isdefined(BonitoSites) && result isa BonitoSites.ToSVG
                 Makie.save(path * ".svg", result.obj)
                 return path * ".svg"
             elseif @isdefined(Makie) && result isa Makie.FigureLike
