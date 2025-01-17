@@ -128,7 +128,7 @@ function Base.eval(mr::MaltRunner, expr::Expr)
             path = $(path)
             old_pwd = pwd()
             cd($(dirname(mr.output_path)))
-            local result = try
+            result = try
                 $(expr)
             finally
                 cd(old_pwd)
@@ -145,7 +145,7 @@ function Base.eval(mr::MaltRunner, expr::Expr)
             elseif @isdefined(Bonito) && result isa Bonito.Asset
                 assetpath = Bonito.get_path(result)
                 rest, ext = splitext(assetpath)
-                cp(assetpath, path * ext)
+                cp(assetpath, path * ext; force=true)
                 return path * ext
             else
                 is_html = showable(MIME"text/html"(), result)
