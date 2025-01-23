@@ -17,6 +17,7 @@ JSON3 = "0f8b85d8-7281-11e9-16c2-39a750bddbf1"
 Malt = "36869731-bdee-424d-aa32-cab38c994e3b"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
 OpenAI = "e9f21f70-7185-4079-aca2-91159181367c"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
 XML = "72c71f33-b9b6-44de-8c94-c961784809e2"
 
 [compat]
@@ -32,6 +33,7 @@ JSON3 = "1.14.0"
 Malt = "1.1.1"
 Markdown = "1.11.0"
 OpenAI = "0.10.0"
+SHA = "0.7.0"
 XML = "0.3.4"
 julia = "1"
 
