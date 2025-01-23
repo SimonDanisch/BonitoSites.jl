@@ -53,7 +53,7 @@ function grab_image_from_url(folder, url)
     else
         path = joinpath(img_folder, url_hash * "." * file_ext)
         if !isfile(path)
-            Downloads.download(img.url, path)
+            Downloads.download(url, path)
         end
     end
     return path
