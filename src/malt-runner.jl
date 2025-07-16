@@ -37,7 +37,7 @@ function grab_image_from_url(folder, url)
     file_mime = Bonito.file_mimetype(url)
     # returns "bin" if no ending found
     file_ext = Bonito.HTTPServer.mimetype_to_extension(file_mime)
-    url_hash = bytes2hex(sha1(abspath(url))) # use as unique file key
+    url_hash = bytes2hex(sha1(url)) # use as unique file key
     img_folder = joinpath(folder, "images")
     !isdir(img_folder) && mkpath(img_folder)
 
