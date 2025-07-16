@@ -53,7 +53,11 @@ function grab_image_from_url(folder, url)
     else
         path = joinpath(img_folder, url_hash * "." * file_ext)
         if !isfile(path)
-            Downloads.download(url, path)
+            try
+                Downloads.download(url, path)
+            catch e
+                @warn "Failed to download image from $url" exception=e
+            end
         end
     end
     return path
@@ -213,11 +217,12 @@ function Base.eval(mr::MaltRunner, expr::Expr)
         try
             output_file = fetch(Malt.remote_eval(worker, eval_expr))
         catch e
-            println(stderr, """
+            @error """
                 Erorr in Expression:
                 $(expr)
                 From project: $(mr.project)
-            """)
+            """ exception=(e, catch_backtrace())
+
             rethrow(e)
         end
     end

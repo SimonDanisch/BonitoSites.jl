@@ -7,9 +7,9 @@ asset(files...) = Bonito.Asset(normpath(joinpath(@__DIR__, "assets", files...)))
 
 function Bonito.jsrender(session::Session, ::HighlightCode)
     path = asset("highlight", "highlight.pack.js")
-    css = asset("highlight", "github.min.css")
+    highlight_css = asset("highlight", "github.min.css")
     return Bonito.jsrender(session, DOM.div(
-        css,
+        highlight_css,
         DOM.script(src=path),
         DOM.script("hljs.highlightAll()")
     ))
