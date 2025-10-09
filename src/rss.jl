@@ -26,7 +26,8 @@ function Bonito.jsrender(s::Session, se::SiteEntry)
 end
 
 function to_dict(x)
-    isnothing(x.children) && return "" => ""
+    # Skip text nodes and nodes without children
+    (isnothing(x) || isnothing(x.children) || isempty(x.children)) && return "" => ""
     elem = x.children[1]
     if x.tag == "image"
         return "image" => elem.children[1].value

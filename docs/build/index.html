@@ -1,0 +1,356 @@
+<!doctype html>
+<html class="bonito-fragment">
+  <head>
+    <script src="./bonito/js/Bonito.bundled13389133706764782584.js" type="module"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>BonitoSites</title>
+    <style>.style_2 {
+  padding: 0;
+  margin: 4rem 0;
+}
+.style_3:hover {
+  color: var(--text-nav-hover);
+}
+.style_4 {
+  text-decoration: none;
+  color: var(--link-color);
+  transition: color 0.2s;
+}
+.style_5 {
+  max-width: 1280px;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+.style_6 {
+  display: flex;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 12px;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+.style_7 {
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-nav);
+  transition: color 0.2s;
+}
+.style_8 {
+  justify-items: legacy;
+  align-items: legacy;
+  height: 100%;
+  display: grid;
+  align-content: normal;
+  grid-gap: 2rem;
+  grid-template-rows: none;
+  justify-content: normal;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  width: 100%;
+  grid-template-areas: none;
+}
+.style_9 {
+  max-width: 800px;
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin: 0 auto;
+  line-height: 1.8;
+}
+.style_10 {
+  margin-top: 6rem;
+  padding: 3rem 2rem;
+  background-color: var(--bg-nav);
+  border-top: 1px solid var(--border-nav);
+  color: var(--text-nav);
+  text-align: center;
+}
+.style_11 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+}
+.style_12 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.style_13 {
+  border: 1px solid var(--border-code);
+  background-color: var(--bg-code);
+  padding: 0;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+.style_14 {
+  align-items: center;
+  display: flex;
+  gap: 2.5rem;
+}
+.style_15 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text-nav-hover);
+  letter-spacing: -0.025em;
+}
+.style_16 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+.style_17 {
+  font-size: 0.875rem;
+  margin: 0.5rem 0;
+}
+.style_18 {
+  font-size: 0.938rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.7;
+}
+.style_19 {
+  color: var(--link-color);
+}
+.style_20 {
+  font-size: 1.05rem;
+  line-height: 2;
+}
+.style_21 {
+  padding: 4rem 0 6rem 0;
+  text-align: center;
+}
+.style_22 {
+  align-items: center;
+  display: flex;
+  padding: 1.25rem 3rem;
+  background-color: var(--bg-nav);
+  border-bottom: 1px solid var(--border-nav);
+  justify-content: space-between;
+}
+.style_23:hover {
+  color: var(--link-hover);
+}
+.style_24 {
+  font-size: 0.875rem;
+  padding: 1.5rem;
+  color: var(--text-primary);
+  font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+  line-height: 1.7;
+}
+</style>
+    <style>@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+  :root {
+    --text-nav: #9CA3AF;
+    --border-code: #374151;
+    --bg-code: #1f2937;
+    --link-hover: #93C5FD;
+    --border-color: #e5e7eb;
+    --text-secondary: #6B7280;
+    --bg-nav: #111827;
+    --text-primary: #111827;
+    --bg-secondary: #ffffff;
+    --border-nav: #1f2937;
+    --bg-primary: #f9fafb;
+    --text-nav-hover: #ffffff;
+    --link-color: #60A5FA;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-nav: #94a3b8;
+    --border-code: #475569;
+    --bg-code: #1e293b;
+    --link-hover: #93C5FD;
+    --border-color: #334155;
+    --text-secondary: #94a3b8;
+    --bg-nav: #020617;
+    --text-primary: #f1f5f9;
+    --bg-secondary: #1e293b;
+    --border-nav: #1e293b;
+    --bg-primary: #0f172a;
+    --text-nav-hover: #f1f5f9;
+    --link-color: #60A5FA;
+  }
+}
+</style>
+    <style>@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem 1rem !important;
+  }
+}
+html, body {
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  margin: 0;
+}
+</style>
+    <style>@media (max-width: 768px) {
+  nav > div {
+    gap: 1.5rem !important;
+  }
+  nav {
+    align-items: flex-start !important;
+    padding: 1rem !important;
+    gap: 1rem;
+    flex-direction: column;
+  }
+}
+</style>
+    <link href="./bonito/css/github.min8213811099958948332.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <script type="module">Bonito.init_session("ca869186-4c05-4db1-a4f0-e853a3b3dda9", null, "root", false);
+</script>
+    <div id="ca869186-4c05-4db1-a4f0-e853a3b3dda9" data-jscall-id="root">
+      <div data-jscall-id="1">
+        <style data-jscall-id="2"></style>
+        <style data-jscall-id="3"></style>
+        <nav class=" style_22" style="" data-jscall-id="4">
+          <style data-jscall-id="5"></style>
+          <a class=" style_15" href="./" data-jscall-id="6" style="">BonitoSites</a>
+          <div class=" style_14" style="" data-jscall-id="7">
+            <a class=" style_3 style_7" href="./" data-jscall-id="8" style="">Home</a>
+            <a class=" style_3 style_7" href="./examples" data-jscall-id="9" style="">Examples</a>
+            <a class=" style_3 style_7" href="https://github.com/SimonDanisch/BonitoSites.jl" data-jscall-id="10" style="" target="_blank">GitHub</a>
+          </div>
+        </nav>
+        <div class="page-container style_5" style="" data-jscall-id="11">
+          <div data-jscall-id="12">
+            <div class=" style_21" style="" data-jscall-id="13">
+              <h1 class=" style_12" style="" data-jscall-id="14">Build &#38; Deploy Static Sites with Julia</h1>
+              <p class=" style_9" style="" data-jscall-id="15">BonitoSites is a powerful toolkit for creating and deploying static websites built with Bonito.jl. Generate documentation sites, blogs, and web content with built-in deployment to GitHub Pages.</p>
+            </div>
+            <section class=" style_2" style="" data-jscall-id="16" id="">
+              <h2 class=" style_11" style="" data-jscall-id="17">Key Features</h2>
+              <div class=" style_8" style="" data-jscall-id="18">
+                <div class=" style_6" style="" data-jscall-id="19">
+                  <h3 class=" style_16" style="" data-jscall-id="20">Easy Deployment</h3>
+                  <p class=" style_18" style="" data-jscall-id="21">Deploy your Bonito applications to GitHub Pages with a single function call. Automatic handling of branch management and push operations.</p>
+                </div>
+                <div class=" style_6" style="" data-jscall-id="22">
+                  <h3 class=" style_16" style="" data-jscall-id="23">Markdown Blog Support</h3>
+                  <p class=" style_18" style="" data-jscall-id="24">Create blogs from Markdown files with automatic RSS feed generation. Perfect for documentation sites and technical blogs.</p>
+                </div>
+                <div class=" style_6" style="" data-jscall-id="25">
+                  <h3 class=" style_16" style="" data-jscall-id="26">Malt-Based Processing</h3>
+                  <p class=" style_18" style="" data-jscall-id="27">Run code in isolated Julia processes using Malt.jl for safe and reproducible content generation.</p>
+                </div>
+                <div class=" style_6" style="" data-jscall-id="28">
+                  <h3 class=" style_16" style="" data-jscall-id="29">Rich Components</h3>
+                  <p class=" style_18" style="" data-jscall-id="30">Built-in components for code highlighting, video embedding, and social media integration.</p>
+                </div>
+                <div class=" style_6" style="" data-jscall-id="31">
+                  <h3 class=" style_16" style="" data-jscall-id="32">RSS Feed Generation</h3>
+                  <p class=" style_18" style="" data-jscall-id="33">Automatically generate RSS feeds from your site entries for easy content syndication.</p>
+                </div>
+                <div class=" style_6" style="" data-jscall-id="34">
+                  <h3 class=" style_16" style="" data-jscall-id="35">GitHub Integration</h3>
+                  <p class=" style_18" style="" data-jscall-id="36">Seamless integration with GitHub for repository information and automated workflows.</p>
+                </div>
+              </div>
+            </section>
+            <section class=" style_2" style="" data-jscall-id="37" id="">
+              <h2 class=" style_11" style="" data-jscall-id="38">Installation</h2>
+              <div data-jscall-id="39">
+                <p data-jscall-id="40">Install BonitoSites directly from GitHub:</p>
+                <pre class=" style_13" style="" data-jscall-id="41">
+                  <code class="language-julia style_24" style="" data-jscall-id="42">using Pkg
+Pkg.add&#40;url&#61;&#34;https://github.com/SimonDanisch/BonitoSites.jl&#34;&#41;</code>
+                </pre>
+              </div>
+            </section>
+            <section class=" style_2" style="" data-jscall-id="43" id="">
+              <h2 class=" style_11" style="" data-jscall-id="44">Quick Start</h2>
+              <div data-jscall-id="45">
+                <p data-jscall-id="46">Get started with BonitoSites in just a few lines of code:</p>
+                <pre class=" style_13" style="" data-jscall-id="47">
+                  <code class="language-julia style_24" style="" data-jscall-id="48">using Bonito
+using BonitoSites
+
+# Create a simple app
+app &#61; App&#40;&#41; do
+    DOM.div&#40;
+        DOM.h1&#40;&#34;Hello, World&#33;&#34;&#41;,
+        DOM.p&#40;&#34;My first Bonito site&#34;&#41;
+    &#41;
+end
+
+# Create routes
+routes &#61; Routes&#40;&#34;/&#34; &#61;&#62; app&#41;
+
+# Export as static site
+Bonito.export_static&#40;&#34;build&#34;, routes&#41;
+
+# Deploy to GitHub Pages
+BonitoSites.deploy&#40;
+    &#34;github.com/yourusername/yourrepo.git&#34;;
+    push_preview&#61;true,
+    devbranch&#61;&#34;main&#34;,
+    devurl&#61;&#34;docs&#34;
+&#41;</code>
+                </pre>
+              </div>
+            </section>
+            <section class=" style_2" style="" data-jscall-id="49" id="">
+              <h2 class=" style_11" style="" data-jscall-id="50">Use Cases</h2>
+              <div data-jscall-id="51">
+                <ul class=" style_20" style="" data-jscall-id="52">
+                  <li data-jscall-id="53">
+                    <strong data-jscall-id="54">Documentation Sites: </strong>Generate beautiful documentation from Bonito applications with automatic deployment.
+                  </li>
+                  <li data-jscall-id="55">
+                    <strong data-jscall-id="56">Technical Blogs: </strong>Create markdown-based blogs with RSS feeds and code execution.
+                  </li>
+                  <li data-jscall-id="57">
+                    <strong data-jscall-id="58">Project Showcases: </strong>Build interactive demonstrations of your Julia projects.
+                  </li>
+                  <li data-jscall-id="59">
+                    <strong data-jscall-id="60">Static Web Apps: </strong>Deploy any Bonito application as a static website.
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <section class=" style_2" style="" data-jscall-id="61" id="">
+              <h2 class=" style_11" style="" data-jscall-id="62">Next Steps</h2>
+              <div data-jscall-id="63">
+                <p data-jscall-id="64">Explore more:</p>
+                <ul class=" style_20" style="" data-jscall-id="65">
+                  <li data-jscall-id="66">
+                    <a class=" style_19" href="./examples" data-jscall-id="67" style="">View Examples</a>
+                  </li>
+                  <li data-jscall-id="68">
+                    <a class=" style_19" href="https://github.com/SimonDanisch/BonitoSites.jl" data-jscall-id="69" style="" target="_blank">GitHub Repository</a>
+                  </li>
+                  <li data-jscall-id="70">
+                    <a class=" style_19" href="https://simondanisch.github.io/Bonito.jl/stable/" data-jscall-id="71" style="" target="_blank">Bonito.jl Documentation</a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+            <footer class=" style_10" style="" data-jscall-id="72">
+              <p class=" style_17" style="" data-jscall-id="73">BonitoSites.jl - Static site generation for Bonito applications</p>
+              <p class=" style_17" style="" data-jscall-id="74">Built with 
+                <a class=" style_4 style_23" href="https://github.com/SimonDanisch/Bonito.jl" data-jscall-id="75" style="" target="_blank">Bonito.jl</a>
+              </p>
+            </footer>
+            <div data-jscall-id="76">
+              <script data-jscall-id="77" src="./bonito/js/highlight.pack13102628173626074447.js"></script>
+              <script data-jscall-id="78">hljs.highlightAll()</script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
