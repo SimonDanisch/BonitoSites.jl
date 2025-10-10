@@ -15,12 +15,50 @@ function Bonito.jsrender(s::Session, se::SiteEntry)
     human_date = Dates.format(se.date, "e, d u Y H:M:S")
     # Bonito.Link is already relative to current site
     link = replace(se.link, "./" => "/")
-    img = isempty(se.image) ? nothing : DOM.img(src=Asset(se.image), height="300px")
-    card = DOM.a(
-        DOM.a(DOM.h3(se.title), href=Bonito.Link(link)),
-        DOM.h4(se.description),
-        img,
-        DOM.div(human_date; class="date"); href=Bonito.Link(link)
+    img = if isempty(se.image)
+        nothing
+    elseif endswith(se.image, ".mp4")
+        DOM.video(src=Asset(se.image), height="300px", autoplay=true, loop=true, muted=true)
+    else
+        DOM.img(src=Asset(se.image), height="300px")
+    end
+
+    styles = Bonito.Styles(
+        Bonito.CSS(
+            "div.blog_entry h3",
+            "font-weight" => "700",
+            "font-size" => "1.125rem",
+            "line-height" => "1.75rem"
+        ),
+        Bonito.CSS(
+            "div.blog_entry h4",
+            "font-weight" => "500",
+            "font-size" => "1rem",
+            "line-height" => "1.6rem"
+        ),
+        Bonito.CSS(
+            "div.blog_entry .date",
+            "font-weight" => "400",
+            "font-size" => "1rem",
+            "line-height" => "1.6rem",
+            "color" => "gray"
+        ),
+        Bonito.CSS(
+            "div.blog_entry img, div.blog_entry video",
+            "max-width" => "100%",
+            "height" => "auto",
+            "object-fit" => "cover"
+        )
+    )
+
+    card = DOM.div(
+        styles,
+        DOM.a(
+            DOM.a(DOM.h3(se.title), href=Bonito.Link(link)),
+            DOM.h4(se.description),
+            img,
+            DOM.div(human_date; class="date"); href=Bonito.Link(link)
+        ); class="blog_entry"
     )
     return Bonito.jsrender(s, card)
 end
