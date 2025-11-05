@@ -1,12 +1,14 @@
 
-function deployparameters(; repo, push_preview, devbranch, devurl)
+function deployparameters(; repo, push_preview, devbranch, devurl, subfolder=nothing)
     cfg = Documenter.GitHubActions()
     deploy_decision = Documenter.deploy_folder(cfg; repo, push_preview, devbranch, devurl)
+    # Allow overriding the subfolder if explicitly provided
+    final_subfolder = subfolder === nothing ? deploy_decision.subfolder : subfolder
     (;
         all_ok=deploy_decision.all_ok,
         branch=deploy_decision.branch,
         repo=deploy_decision.repo,
-        subfolder=deploy_decision.subfolder,
+        subfolder=final_subfolder,
         is_preview=deploy_decision.is_preview,
         config=cfg,
     )
@@ -140,7 +142,7 @@ function make(f, page_folder, destination)
     Bonito.export_static(destination, routes)
 end
 
-function deploy(repo; target="build", devbranch="main", devurl="website", push_preview=true)
-    params = deployparameters(; repo, devbranch, devurl, push_preview)
+function deploy(repo; target="build", devbranch="main", devurl="website", push_preview=true, subfolder=nothing)
+    params = deployparameters(; repo, devbranch, devurl, push_preview, subfolder)
     _deploy(params; target=target)
 end
